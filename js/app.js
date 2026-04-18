@@ -4,6 +4,18 @@
 
 document.getElementById("ano-atual").textContent = new Date().getFullYear();
 
+// Adicione autocomplete="off" e readonly no HTML:
+// <input type="text" id="meuCampo" autocomplete="off" readonly />
+
+document.addEventListener("DOMContentLoaded", () => {
+  const input = document.getElementById("search-input");
+
+  // Remove o readonly quando o usuário foca no campo
+  input.addEventListener("focus", () => {
+    input.removeAttribute("readonly");
+  });
+});
+
 // ── 1. MONTAR A PÁGINA DE DETALHES ─────────────
 // detalhes.js chama essa função depois de buscar os dados do item clicado.
 // Ela lê o id e tipo da URL, busca os dados completos na API e monta a página.

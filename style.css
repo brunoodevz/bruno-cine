@@ -23,7 +23,7 @@
 /* ── RESET BÁSICO ────────────────────────────────
    Por padrão, navegadores adicionam margens e paddings em certos elementos.
    Zeramos isso pra ter controle total.
-*/ 
+*/
 * {
   margin: 0;
   padding: 0;
@@ -98,7 +98,7 @@ img {
 /* ── BARRA DE BUSCA ──────────────────────────────*/
 .search-box {
   display: flex;
-  width: 30px;
+  width: 200px;
   align-items: center;
   gap: 0.5rem;
   background: var(--cor-fundo2);
@@ -351,12 +351,6 @@ img {
   font-size: 0.72rem;
   color: var(--cor-texto2);
   margin-top: 3px;
-}
-
-.detalhe-poster {
-  width: 300px;
-  border-radius: 10px;
-  background: var(--cor-borda);
 }
 
 /* ── RODAPÉ ──────────────────────────────────────*/
