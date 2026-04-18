@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrunoCine</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- NAVEGAÇÃO -->
+    <nav class="navbar">
+
+        <!-- Nome do site (clica e volta pra home) -->
+        <a class="logo" href="index.html">BrunoCine</a>
+
+
+        <!-- Campo de busca com ícone de lupa -->
+        <div class="search-box">
+            <!-- SVG da lupa desenhado com código (não é imagem) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            <input type="text" id="search-input" placeholder="Buscar...">
+        </div>
+
+    </nav>
+
+    <!-- RESULTADOS DA BUSCA (fica escondido até digitar) -->
+    <div class="search-results" id="search-results"></div>
+
+    <!-- HERO (destaque principal) -->
+    <section class="hero" id="hero">
+        <!-- O conteúdo do hero é preenchido pelo JavaScript -->
+        <div class="hero-info" id="hero-info">
+            <p>Carregando...</p>
+        </div>
+    </section>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="container">
+
+        <!-- Seção: Filmes Populares -->
+        <section class="section">
+            <div class="section-header">
+                <h2>Filmes Populares (TOP 7)</h2>
+            </div>
+            <!-- Os cards são inseridos aqui pelo JavaScript -->
+            <div class="cards-row" id="filmes-populares"></div>
+        </section>
+
+        <!-- Seção: Séries Populares -->
+        <section class="section">
+            <div class="section-header">
+                <h2>Séries Populares (TOP 7)</h2>
+
+            </div>
+            <div class="cards-row" id="series-populares"></div>
+        </section>
+
+        <!-- Seção: Mais Bem Avaliados -->
+        <section class="section">
+            <div class="section-header">
+                <h2>Mais Bem Avaliados (TOP 7)</h2>
+            </div>
+            <div class="cards-row" id="top-avaliados"></div>
+        </section>
+
+    </main>
+
+    <!-- RODAPÉ -->
+    <footer>
+        <p>BrunoCine &copy; <span id="ano-atual"></span> — Dados fornecidos pelo <a href="https://www.themoviedb.org" target="_blank">TMDB</a>
+        </p>
+    </footer>
+
+    <!-- JavaScript (sempre no final do body, assim o HTML carrega primeiro) -->
+    <script src="js/app.js"></script>
+    <script src="js/index.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,374 @@
+/* ================================================
+   style.css — Estilos do BrunoCine
+   ================================================
+   CSS é uma linguagem de ESTILO.
+   Aqui a gente diz: "esse elemento tem essa cor, esse tamanho..."
+   A sintaxe é sempre: seletor { propriedade: valor; }
+*/
+
+/* ── VARIÁVEIS (Custom Properties) ──────────────
+   CSS permite criar "variáveis" com -- na frente.
+   Elas ficam dentro de :root (que representa a página toda).
+   Vantagem: se quiser mudar a cor principal, muda só aqui.
+*/
+:root {
+  --cor-fundo: #0d0d1a; /* fundo escuro da página */
+  --cor-fundo2: #1a1a2e; /* fundo dos cards e seções */
+  --cor-texto: #f0ede8; /* cor do texto principal */
+  --cor-texto2: #a0a0b8; /* texto secundário (datas, notas) */
+  --cor-dourado: #e8b84b; /* cor de destaque dourada */
+  --cor-borda: #2a2a40; /* bordas sutis */
+}
+
+/* ── RESET BÁSICO ────────────────────────────────
+   Por padrão, navegadores adicionam margens e paddings em certos elementos.
+   Zeramos isso pra ter controle total.
+*/ 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* faz o padding não aumentar o tamanho do elemento */
+}
+
+body {
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+  font-family: sans-serif; /* fonte genérica — funciona em qualquer sistema */
+  line-height: 1.6; /* espaço entre linhas (legibilidade) */
+}
+
+a {
+  text-decoration: none; /* remove o sublinhado padrão dos links */
+  color: inherit; /* herda a cor do elemento pai */
+}
+
+img {
+  display: block; /* imagens por padrão são inline, isso remove espaço extra embaixo */
+  max-width: 100%; /* imagem nunca ultrapassa o tamanho do container */
+}
+
+/* ── NAVBAR ──────────────────────────────────────
+   position: sticky faz a navbar ficar "colada" no topo enquanto você rola a página.
+   É diferente de fixed: sticky respeita o fluxo do documento.
+*/
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100; /* fica por cima de outros elementos */
+  background-color: rgba(13, 13, 26, 0.95); /* fundo semitransparente */
+  border-bottom: 1px solid var(--cor-borda);
+  padding: 0 2rem;
+  height: 60px;
+
+  /* Flexbox: organiza os filhos em linha */
+  display: flex;
+  align-items: center; /* centraliza verticalmente */
+  gap: 2rem; /* espaço entre os itens */
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--cor-dourado);
+  letter-spacing: 2px;
+}
+
+/* Remove os bolinhas da lista */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 0.5rem;
+  flex: 1; /* ocupa o espaço disponível, empurrando a busca pra direita */
+}
+
+.nav-links a {
+  padding: 0.35rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: var(--cor-texto2);
+  transition: all 0.2s; /* animação suave no hover */
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--cor-dourado);
+  background-color: rgba(232, 184, 75, 0.1);
+}
+
+/* ── BARRA DE BUSCA ──────────────────────────────*/
+.search-box {
+  display: flex;
+  width: 30px;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--cor-fundo2);
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
+  padding: 0.4rem 0.8rem;
+}
+
+.search-box:focus-within {
+  /* focus-within ativa quando qualquer filho está em foco */
+  border-color: var(--cor-dourado);
+}
+
+.search-box input {
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--cor-texto);
+  font-size: 0.875rem;
+  width: 180px;
+}
+
+.search-box svg {
+  color: var(--cor-texto2);
+  flex-shrink: 0; /* não encolhe o ícone */
+}
+
+/* ── RESULTADOS DA BUSCA ─────────────────────────*/
+.search-results {
+  position: fixed; /* fica em cima de tudo, fora do fluxo */
+  top: 68px;
+  right: 2rem;
+  width: 320px;
+  background: var(--cor-fundo2);
+  border: 1px solid var(--cor-borda);
+  border-radius: 10px;
+  z-index: 200;
+  overflow: hidden;
+  display: none; /* começa escondido — o JS mostra quando precisa */
+}
+
+.resultado-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.9rem;
+  border-bottom: 1px solid var(--cor-borda);
+  transition: background 0.15s;
+}
+
+.resultado-item:last-child {
+  border-bottom: none;
+}
+.resultado-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.resultado-item img {
+  width: 36px;
+  height: 54px;
+  object-fit: cover; /* recorta a imagem mantendo proporção */
+  border-radius: 4px;
+}
+
+.resultado-titulo {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.resultado-tipo {
+  font-size: 0.75rem;
+  color: var(--cor-texto2);
+  margin-top: 2px;
+}
+
+.busca-msg {
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--cor-texto2);
+}
+
+/* ── HERO ────────────────────────────────────────
+   O hero é a área de destaque no topo.
+   background-size: cover faz a imagem cobrir toda a área.
+*/
+.hero {
+  height: 500px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+
+  display: flex;
+  align-items: flex-end; /* coloca o conteúdo na parte de baixo */
+}
+
+/* Gradiente escuro sobre a imagem para o texto ficar legível */
+.hero::after {
+  content: ""; /* pseudo-elemento precisa de content */
+  position: absolute;
+  inset: 0; /* equivale a top:0; right:0; bottom:0; left:0 */
+  background: linear-gradient(
+    to top,
+    rgba(13, 13, 26, 1) 0%,
+    rgba(13, 13, 26, 0.3) 100%
+  );
+}
+
+/* O conteúdo do hero precisa ficar acima do gradiente */
+.hero-info {
+  position: relative;
+  z-index: 1; /* fica acima do ::after */
+  padding: 2.5rem;
+  max-width: 600px;
+}
+
+.hero-tag {
+  display: inline-block;
+  background: var(--cor-dourado);
+  color: #000;
+  font-size: 0.7rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  padding: 3px 10px;
+  border-radius: 4px;
+  margin-bottom: 0.75rem;
+}
+
+.hero-info h1 {
+  font-size: 2.5rem;
+  line-height: 1.1;
+  margin-bottom: 0.75rem;
+}
+
+.hero-info p {
+  font-size: 0.9rem;
+  color: var(--cor-texto2);
+  margin-bottom: 1.25rem;
+
+  /* Limita o texto a 3 linhas e coloca "..." no final */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: text;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.btn-hero {
+  display: inline-block;
+  background: var(--cor-dourado);
+  color: #000;
+  font-weight: bold;
+  font-size: 0.875rem;
+  padding: 0.6rem 1.4rem;
+  border-radius: 7px;
+  transition: opacity 0.2s;
+}
+
+.btn-hero:hover {
+  opacity: 0.85;
+}
+
+/* ── CONTAINER ───────────────────────────────────
+   Limita a largura do conteúdo e centraliza.
+   É uma prática comum em todo site.
+*/
+.container {
+  max-width: 1200px;
+  margin: 0 auto; /* centraliza horizontalmente */
+  padding: 0 2rem;
+}
+
+/* ── SEÇÕES ──────────────────────────────────────*/
+.section {
+  padding: 2.5rem 0;
+  border-top: 1px solid var(--cor-borda);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between; /* título na esquerda, link na direita */
+  align-items: baseline;
+  margin-bottom: 1.25rem;
+}
+
+.section-header h2 {
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+}
+
+.section-header a {
+  font-size: 0.8rem;
+  color: var(--cor-dourado);
+}
+
+/* ── CARDS ROW ───────────────────────────────────
+   overflow-x: auto cria scroll horizontal.
+   Assim você pode mostrar muitos cards sem quebrar o layout.
+*/
+.cards-row {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+
+  /* Esconde a barra de scroll (visual apenas, scroll ainda funciona) */
+  scrollbar-width: none;
+}
+.cards-row::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── CARD ────────────────────────────────────────*/
+.card {
+  flex: 0 0 150px; /* não encolhe nem cresce, fica fixo em 150px */
+  background: var(--cor-fundo2);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--cor-borda);
+  transition: transform 0.2s; /* animação de hover */
+  display: block;
+}
+
+.card:hover {
+  transform: translateY(-5px); /* sobe 5px no hover */
+}
+
+.card img {
+  width: 100%;
+  aspect-ratio: 2/3; /* proporção poster (largura:altura) */
+  object-fit: cover;
+  background: var(--cor-borda);
+}
+
+.card-info {
+  padding: 0.6rem 0.75rem;
+}
+
+.card-titulo {
+  font-size: 0.8rem;
+  font-weight: 500;
+
+  /* Corta o texto em 1 linha com "..." */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-ano {
+  font-size: 0.72rem;
+  color: var(--cor-texto2);
+  margin-top: 3px;
+}
+
+.detalhe-poster {
+  width: 300px;
+  border-radius: 10px;
+  background: var(--cor-borda);
+}
+
+/* ── RODAPÉ ──────────────────────────────────────*/
+footer {
+  text-align: center;
+  padding: 2rem;
+  margin-top: 3rem;
+  border-top: 1px solid var(--cor-borda);
+  font-size: 0.8rem;
+  color: var(--cor-texto2);
+}
+
+footer a {
+  color: var(--cor-dourado);
+}
